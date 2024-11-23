@@ -14,6 +14,7 @@ class adapterRecView (private val listTugas: ArrayList<tugas>) : RecyclerView
 
     interface OnItemClickCallback {
         fun onItemClicked(data:tugas)
+        fun delData(pos: Int)
     }
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
@@ -22,6 +23,7 @@ class adapterRecView (private val listTugas: ArrayList<tugas>) : RecyclerView
         var _judulTugas = itemView.findViewById<TextView>(R.id.judul)
         var _mataKuliahTugas = itemView.findViewById<TextView>(R.id.mataKuliah)
         var _deskripsiTugas = itemView.findViewById<TextView>(R.id.deskripsi)
+        var _btnHapus = itemView.findViewById<TextView>(R.id.btnHapus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -42,6 +44,9 @@ class adapterRecView (private val listTugas: ArrayList<tugas>) : RecyclerView
         holder._judulTugas.setOnClickListener {
             Toast.makeText(holder.itemView.context,tugas.matkul,Toast.LENGTH_LONG).show()
             onItemClickCallback.onItemClicked(listTugas[position])
+        }
+        holder._btnHapus.setOnClickListener {
+            onItemClickCallback.delData(position)
         }
     }
 }
