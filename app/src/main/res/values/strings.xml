@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">TugasRecyclerView</string>
+    <string-array name="judul">
+        <item>Tugas UI</item>
+        <item>Tugas Museum</item>
+        <item>Tugas Web</item>
+        <item>Tugas Hitungan</item>
+        <item>Projek Service Learning</item>
+        <item>Tugas Artikel</item>
+        <item>Tugas Presentasi</item>
+        <item>Tugas coding</item>
+        <item>Tugas Pseudocode</item>
+        <item>Tugas DFS</item>
+    </string-array>
+
+    <string-array name="matkul">
+        <item>SQTA</item>
+        <item>Grafika Komputer</item>
+        <item>WFD</item>
+        <item>Kalkulus</item>
+        <item>Kewarganegaraan</item>
+        <item>Bahasa Indonesia</item>
+        <item>Bahasa inggris</item>
+        <item>Dasar Pemrograman</item>
+        <item>DAA</item>
+        <item>Algoritma</item>
+    </string-array>
+
+    <string-array name="deskripsi">
+        <item>Anak kedua Pandawa yang paling kuat dan gagah berani.</item>
+        <item>Anak ketiga Pandawa yang rupawan dan ahli memanah.</item>
+        <item>Anak keempat Pandawa yang pandai merawat hewan dan mahir dalam ilmu pertarungan.</item>
+        <item>Anak kelima Pandawa yang mahir dalam ilmu pengetahuan dan mampu berkomunikasi dengan binatang.</item>
+        <item>Anak Bima yang sakti dan memiliki kekuatan luar biasa.</item>
+        <item>Guru dan penasihat Pandawa yang bijaksana dan sakti.</item>
+        <item>Adik Semar yang lucu dan suka bercanda.</item>
+        <item>Kakak Semar yang bijaksana dan suka mengkritik.</item>
+        <item>Kakak Bima yang sakti dan memiliki sifat keras kepala.</item>
+        <item>Anak tertua Destarata yang ambisius dan ingin merebut tahta Pandawa.</item>
+    </string-array>
+
+
+</resources>
