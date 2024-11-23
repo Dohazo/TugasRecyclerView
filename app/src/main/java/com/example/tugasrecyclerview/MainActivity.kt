@@ -90,12 +90,22 @@ class MainActivity : AppCompatActivity() {
                         }
                     ).show()
             }
+
+            override fun editData(pos: Int) {
+                val dataKirim = arTugas[pos]
+                val inten = Intent(this@MainActivity,editTugas::class.java)
+                inten.putExtra("data1_tugas",dataKirim)
+                    .putExtra("dataPos",pos)
+
+                startActivityForResult(inten, REQUEST_CODE_EDIT_TUGAS)
+            }
         })
         _rvTugas.layoutManager = LinearLayoutManager(this)
 //        _rvTugas.adapter = adapterRecView(arTugas)
     }
     companion object {
         const val REQUEST_CODE_ADD_TUGAS = 1
+        const val REQUEST_CODE_EDIT_TUGAS = 2
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -105,6 +115,16 @@ class MainActivity : AppCompatActivity() {
                 arTugas.clear()
                 arTugas.addAll(updatedData)
                 tampilkanData() // Perbarui tampilan RecyclerView
+            }
+        }
+        // Tangkap hasil edit
+        if (requestCode == REQUEST_CODE_EDIT_TUGAS && resultCode == RESULT_OK) {
+            val editedData = data?.getParcelableExtra<tugas>("editedData")
+            val pos = data?.getIntExtra("dataPos", -1)?: -1
+
+            if (editedData != null && pos != null && pos >= 0) {
+                arTugas[pos] = editedData // Perbarui data di posisi tertentu
+                tampilkanData() // Perbarui RecyclerView
             }
         }
     }

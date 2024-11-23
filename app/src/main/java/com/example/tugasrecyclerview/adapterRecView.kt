@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ class adapterRecView (private val listTugas: ArrayList<tugas>) : RecyclerView
     interface OnItemClickCallback {
         fun onItemClicked(data:tugas)
         fun delData(pos: Int)
+        fun editData(pos: Int)
     }
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
@@ -23,7 +25,8 @@ class adapterRecView (private val listTugas: ArrayList<tugas>) : RecyclerView
         var _judulTugas = itemView.findViewById<TextView>(R.id.judul)
         var _mataKuliahTugas = itemView.findViewById<TextView>(R.id.mataKuliah)
         var _deskripsiTugas = itemView.findViewById<TextView>(R.id.deskripsi)
-        var _btnHapus = itemView.findViewById<TextView>(R.id.btnHapus)
+        var _btnHapus = itemView.findViewById<Button>(R.id.btnHapus)
+        var _btnEdit = itemView.findViewById<Button>(R.id.edit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -47,6 +50,9 @@ class adapterRecView (private val listTugas: ArrayList<tugas>) : RecyclerView
         }
         holder._btnHapus.setOnClickListener {
             onItemClickCallback.delData(position)
+        }
+        holder._btnEdit.setOnClickListener {
+            onItemClickCallback.editData(position)
         }
     }
 }
