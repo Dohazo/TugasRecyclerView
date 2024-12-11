@@ -18,12 +18,12 @@ class detTugas : AppCompatActivity() {
             insets
         }
         val _judul = findViewById<TextView>(R.id.judul_det)
-        val _matkul = findViewById<TextView>(R.id.matkul_det)
+        val _tanggal = findViewById<TextView>(R.id.tanggal_det)
         val _deskripsi = findViewById<TextView>(R.id.deskripsi_det)
         val dataInten = intent.getParcelableExtra("data",tugas::class.java)
         if(dataInten != null){
             _judul.setText(dataInten.judul)
-            _matkul.setText(dataInten.matkul)
+            _tanggal.setText(dataInten.tanggal)
             _deskripsi.setText(dataInten.deskripsi)
         }
     }

@@ -45,15 +45,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mata Kuliah : "
+            android:text="Tanggal : "
             android:layout_marginStart="8dp"
             android:textSize="20sp"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editMatkul"
-            android:hint="STQA"
+            android:id="@+id/editTanggal"
+            android:hint="12/22/2003"
             />
     </LinearLayout>
 

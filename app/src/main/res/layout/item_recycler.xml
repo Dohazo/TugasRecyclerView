@@ -18,15 +18,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/mataKuliah"
+        android:id="@+id/tanggal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:text="Tanggal"
         android:textColor="#526E48"
-        android:text="MataKuliah"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/judul"
         app:layout_constraintTop_toBottomOf="@id/judul" />
 
@@ -42,8 +40,8 @@
         android:text="Description"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/mataKuliah"
-        app:layout_constraintTop_toBottomOf="@id/mataKuliah" />
+        app:layout_constraintStart_toStartOf="@id/tanggal"
+        app:layout_constraintTop_toBottomOf="@id/tanggal" />
 
     <Button
         android:id="@+id/btnHapus"
@@ -77,4 +75,14 @@
         android:text="Done"
         app:layout_constraintEnd_toStartOf="@+id/edit"
         app:layout_constraintTop_toBottomOf="@id/deskripsi" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/star1"
+        android:id="@+id/gbr1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

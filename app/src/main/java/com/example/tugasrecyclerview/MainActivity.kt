@@ -2,7 +2,9 @@ package com.example.tugasrecyclerview
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -12,13 +14,20 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class MainActivity : AppCompatActivity() {
 //    private lateinit var _judul : MutableList<String>
 //    private lateinit var _matKul : MutableList<String>
 //    private lateinit var _deskripsi  : MutableList<String>
-
+    val db = Firebase.firestore
+    lateinit var sp : SharedPreferences
     private var arTugas = arrayListOf<tugas>()
+    private var arTugasFB = arrayListOf<tugas>()
     private lateinit var _rvTugas : RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +38,13 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        sp = getSharedPreferences("dataSP", MODE_PRIVATE)
+        val gson = Gson()
+        val isiSP = sp.getString("spTugas",null)
+        val type = object : TypeToken<ArrayList<tugas>> (){}.type
+        if(isiSP != null)
+            arTugas = gson.fromJson(isiSP,type)
+
         val _btnTambah = findViewById<FloatingActionButton>(R.id.fab)
         _btnTambah.setOnClickListener {
             val inten = Intent(this@MainActivity, addEdTugas::class.java)
@@ -37,15 +53,31 @@ class MainActivity : AppCompatActivity() {
 
         }
        _rvTugas= findViewById<RecyclerView>(R.id.rvTugas)
-//        siapkanData()
+        siapkanData(db)
         tambahData()
         tampilkanData()
 
     }
-    fun siapkanData(){
-//        _judul = resources.getStringArray(R.array.judul).toMutableList()
-//        _matKul = resources.getStringArray(R.array.matkul).toMutableList()
-//        _deskripsi = resources.getStringArray(R.array.deskripsi).toMutableList()
+    fun siapkanData(db : FirebaseFirestore){
+        val adapterTugas = adapterRecView(arTugasFB)
+        _rvTugas.adapter = adapterTugas
+        db.collection("tbTugas").get()
+            .addOnSuccessListener {
+                result ->
+                arTugasFB.clear()
+                for(document in result){
+                    val readData = tugas(
+                        document.data.get("judul").toString(),
+                        document.data.get("tanggal").toString(),
+                        document.data.get("deskripsi").toString()
+                    )
+                    arTugasFB.add(readData)
+                }
+                _rvTugas.adapter = adapterRecView(arTugasFB)
+                // Beritahu adapter bahwa data telah berubah
+                adapterTugas.notifyDataSetChanged()
+                tampilkanData()
+            }
     }
     fun tambahData(){
 //        arTugas.clear()
@@ -99,9 +131,26 @@ class MainActivity : AppCompatActivity() {
 
                 startActivityForResult(inten, REQUEST_CODE_EDIT_TUGAS)
             }
+
+            override fun addToFav(pos: Int) {
+                val data = arTugas[pos]
+                arTugas.add(arTugas[pos])
+                arTugas.removeAt(pos)
+                db.collection("tbTugas").document(data.judul).set(data)
+                    .addOnSuccessListener {
+                        Toast.makeText(this@MainActivity,"Data ditambahkan ke DB",Toast.LENGTH_LONG)
+                            .show()
+                        Log.d("Firebase","Data Berhasil Di simpan")
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this@MainActivity,"Data fail ditambahkan ke DB",Toast.LENGTH_LONG)
+                            .show()
+                        Log.d("Firebase",it.message.toString())
+                    }
+            }
         })
         _rvTugas.layoutManager = LinearLayoutManager(this)
-//        _rvTugas.adapter = adapterRecView(arTugas)
+        _rvTugas.adapter = adapterRecView(arTugas)
     }
     companion object {
         const val REQUEST_CODE_ADD_TUGAS = 1
@@ -114,7 +163,14 @@ class MainActivity : AppCompatActivity() {
             if (updatedData != null) {
                 arTugas.clear()
                 arTugas.addAll(updatedData)
-                tampilkanData() // Perbarui tampilan RecyclerView
+                val gson = Gson()
+                val editor = sp.edit()
+               val json = gson.toJson(arTugas)
+                editor.putString("spTugas",json)
+                editor.apply()
+                siapkanData(db)
+                tampilkanData()
+            // Perbarui tampilan RecyclerView
             }
         }
         // Tangkap hasil edit
@@ -124,7 +180,9 @@ class MainActivity : AppCompatActivity() {
 
             if (editedData != null && pos != null && pos >= 0) {
                 arTugas[pos] = editedData // Perbarui data di posisi tertentu
+                siapkanData(db)
                 tampilkanData() // Perbarui RecyclerView
+
             }
         }
     }

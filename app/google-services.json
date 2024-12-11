@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "745360153790",
+    "project_id": "tugasrecyclerview-16710",
+    "storage_bucket": "tugasrecyclerview-16710.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745360153790:android:405a9732c09c4692f412ef",
+        "android_client_info": {
+          "package_name": "com.example.tugasrecyclerview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD24BxIg-OA2hiNDlndEdRksskl4nSLOJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

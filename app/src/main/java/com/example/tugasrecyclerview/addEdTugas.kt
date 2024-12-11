@@ -22,14 +22,14 @@ class addEdTugas : AppCompatActivity() {
 //        val dataIn = intent.getParcelableArrayListExtra("dataTugas", arrayListOf<tugas>()::class.java)
         val dataIn: ArrayList<tugas>? = intent.getParcelableArrayListExtra("dataTugas")
         val inJudul = findViewById<EditText>(R.id.edJudul)
-        val inMatkul = findViewById<EditText>(R.id.edMatkul)
+        val inTanggal = findViewById<EditText>(R.id.edTanggal)
         val inDeskripsi = findViewById<EditText>(R.id.edDeskripsi)
         val _addBtn = findViewById<Button>(R.id.addBtn)
         _addBtn.setOnClickListener {
             if (dataIn != null) {
                 val newTugas = tugas(
                     judul = inJudul.text.toString(),
-                    matkul = inMatkul.text.toString(),
+                    tanggal = inTanggal.text.toString(),
                     deskripsi = inDeskripsi.text.toString()
                 )
                 dataIn.add(newTugas)

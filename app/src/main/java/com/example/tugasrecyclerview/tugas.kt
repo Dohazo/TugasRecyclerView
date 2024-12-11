@@ -6,6 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class tugas(
     var judul : String,
-    var matkul : String,
+    var tanggal : String,
     var deskripsi : String
 ) : Parcelable

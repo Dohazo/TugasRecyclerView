@@ -21,7 +21,7 @@ class editTugas : AppCompatActivity() {
             insets
         }
         val _editJudul = findViewById<EditText>(R.id.editJudul)
-        val _editMatkul = findViewById<EditText>(R.id.editMatkul)
+        val _editTanggal = findViewById<EditText>(R.id.editTanggal)
         val _editDeskripsi = findViewById<EditText>(R.id.editDeskripsi)
         val _setBtn = findViewById<Button>(R.id.setEditBtn)
         val dataTugas = intent.getParcelableExtra<tugas>("data1_tugas")
@@ -29,14 +29,14 @@ class editTugas : AppCompatActivity() {
 
 
         _editJudul.setText(dataTugas?.judul)
-        _editMatkul.setText(dataTugas?.matkul)
+        _editTanggal.setText(dataTugas?.tanggal)
         _editDeskripsi.setText(dataTugas?.deskripsi)
         var isClicked = false
         _setBtn.setOnClickListener{
             Log.i("editTugas", "Button clicked, preparing result")
             val updatedTugas = tugas(
                 _editJudul.text.toString(),
-                _editMatkul.text.toString(),
+                _editTanggal.text.toString(),
                 _editDeskripsi.text.toString()
             )
             if (!isClicked) {
